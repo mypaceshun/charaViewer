@@ -1,7 +1,7 @@
 import datetime
 import pytest
 from . import get_apply_list
-from aggregater import apply_from_type
+from charaViewer.aggregater import apply_from_type
 
 class TestAggregateRecordsFromType():
     def test_aggregate_records_from_type(self):
