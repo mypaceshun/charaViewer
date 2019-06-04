@@ -15,5 +15,16 @@ def apply_from_type(apply_list):
                   'status': 当選
                   'status_code': 0,
                   }, ...]
+    apply_list をstatus_codeごとに分類
     '''
-    return {}
+
+    r = {}
+
+    for d in apply_list:
+        key = '{}{}'.format(d['id'], d['status_code'])
+        if key in r.keys():
+            r[key]['num'] = r[key]['num'] + d['num']
+            r[key]['total_money'] = r[key]['one_money'] * r[key]['num']
+        else:
+            r[key] = d
+    return r
