@@ -9,9 +9,12 @@ pytest = "*"
 
 [packages]
 django = "*"
+pychara = "*"
 
 [requires]
 python_version = "3.6"
 
 [scripts]
 build-env = "pipenv sync"
+test = "pytest tests"
+lint = "flake8 aggregater"
