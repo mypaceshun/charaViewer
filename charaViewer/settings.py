@@ -23,10 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fi$^!$w^^$!utt)5zwb$siuf82_37z4-ig+wvqc+*#r*h9l@13'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
+try:
+    from .local_settings import *
+except ImportError as error:
+    pass
 
 # Application definition
 
@@ -120,3 +124,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'charaViewer', 'statics')]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
+
+
+if DEBUG is False:
+    DEBUG = True
+    import django_heroku
+    django_heroku.settings(locals())
