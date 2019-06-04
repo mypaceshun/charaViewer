@@ -32,6 +32,21 @@ try:
 except ImportError as error:
     pass
 
+ten_min = 60 * 10
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = ten_min
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+if DEBUG is False:
+    # Cookieにsecure属性が付いていると
+    # manage.py runserverで実行したときに
+    # Cookieが機能しなくなってしまうので
+    # DEBUGがFalseのときのみsecure属性をセットする
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
 # Application definition
 
 INSTALLED_APPS = [

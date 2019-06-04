@@ -38,10 +38,14 @@ def top_view(request):
 
 def result_view(request):
     context = {}
-    apply_list = request.session['apply_list']
-    _apply_list = apply_from_type(apply_list)
-    print(_apply_list)
-    data = [_apply_list[key] for key in _apply_list]
-    context['data'] = data
-    print(data)
-    return render(request, 'result.html', context)
+    if request.method == 'GET':
+        if 'apply_list' not in request.session.keys():
+            return redirect('top')
+        apply_list = request.session['apply_list']
+        _apply_list = apply_from_type(apply_list)
+        print(_apply_list)
+        data = [_apply_list[key] for key in _apply_list]
+        context['data'] = data
+        return render(request, 'result.html', context)
+    else:
+        return redirect('top')
