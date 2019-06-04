@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>某兄さんをいい感じに集計していい感じに出力します。</h1>
+{% if error %}
+{{ error }}
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <p>ユーザー名<input type="text" name="username" id="username"></input></p>
+    <p>パスワード<input type="password" name="password" id="password"></input></p>
+    <input type="submit" name="submit" id="submit" value="ログインしてデータを取得"></input>
+</form>
+{% endblock %}

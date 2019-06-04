@@ -23,8 +23,8 @@ def apply_from_type(apply_list):
     for d in apply_list:
         key = '{}{}'.format(d['id'], d['status_code'])
         if key in r.keys():
-            r[key]['num'] = r[key]['num'] + d['num']
-            r[key]['total_money'] = r[key]['one_money'] * r[key]['num']
+            r[key]['num'] = int(r[key]['num']) + int(d['num'])
+            r[key]['total_money'] = int(r[key]['one_money']) * int(r[key]['num'])
         else:
             r[key] = d
     return r

@@ -19,5 +19,5 @@ import charaViewer.app_chara.urls
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
-    path('charaViewer', include(charaViewer.app_chara.urls))
+    path('charaViewer/', include(charaViewer.app_chara.urls))
 ]

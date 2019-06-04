@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -5,6 +6,6 @@
         <title>CharaViewer</title>
     </head>
     <body>
-        <h1>BODY</h1>
+        {% block content %}{% endblock %}
     </body>
 </html>
