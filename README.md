@@ -10,3 +10,6 @@
 * python 3.6.7 で開発
 * pipenv + pyenv環境がよい感じ
 
+# TODO
+
+* とりあえず普通にDjangoで開発する(Herokuとかはその後)
