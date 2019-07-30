@@ -1,4 +1,6 @@
+from functools import wraps
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_http_methods
 from pychara.exceptions import (PyCharaException,
                                 LoginFailureException)
 from pychara.session import Session
@@ -6,10 +8,25 @@ from pychara.session import Session
 from charaViewer.aggregater import apply_from_type
 
 
+def require_login(func):
+    @wraps(func)
+    def _require_login(request, *args, **kwargs):
+        username = request.session.get("username", None)
+        if username is None:
+            return redirect('login')
+        return func(request, *args, **kwargs)
+    return _require_login
+
+
+@require_login
+@require_http_methods(['GET'])
 def top_view(request):
     context = {}
-    if request.method == 'GET':
-        return render(request, 'top.html', context)
+    apply_list = request.session['apply_list']
+    _apply_list = apply_from_type(apply_list)
+    data = [_apply_list[key] for key in _apply_list]
+    context['data'] = data
+    return render(request, 'top.html', context)
 
 
 def login_view(request):
@@ -20,7 +37,7 @@ def login_view(request):
         postdata = request.POST
         username = postdata['username']
         password = postdata['password']
-        pages = 5
+        pages = int(postdata['page'])
         s = Session()
         try:
             s.login(username, password)
@@ -38,7 +55,8 @@ def login_view(request):
         except PyCharaException as err:
             context['error'] = '情報の取得に失敗しました...'
             return render(request, 'login.html', context)
-        return redirect('result')
+        request.session['username'] = username
+        return redirect('top')
 
 
 def result_view(request):
@@ -48,7 +66,6 @@ def result_view(request):
             return redirect('top')
         apply_list = request.session['apply_list']
         _apply_list = apply_from_type(apply_list)
-        print(_apply_list)
         data = [_apply_list[key] for key in _apply_list]
         context['data'] = data
         return render(request, 'result.html', context)
