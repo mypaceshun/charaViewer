@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>某兄さんをいい感じに集計していい感じに出力します。</h1>
+<div class="row">
+    <div class="col-md-12">
+        <h1>某兄さんをいい感じに集計していい感じに出力します。</h1>
+    </div>
+</div>
 {% if error %}
-{{ error }}
+<div class="row">
+    {{ error }}
+</div>
 {% endif %}
-<form method="post">
-    {% csrf_token %}
-    <p>ユーザー名<input type="text" name="username" id="username"></input></p>
-    <p>パスワード<input type="password" name="password" id="password"></input></p>
-    <input type="submit" name="submit" id="submit" value="ログインしてデータを取得"></input>
-</form>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div class="form-group login-form">
+                {% csrf_token %}
+                <label for="username">ユーザー名</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="ユーザー名を入れてください"></input>
+                <label for="password">パスワード</label>
+                <input type="password" class="form-control" name="password" id="password" aria-describedby="policy" placeholder="パスワードを入れてください"></input>
+                <small id="policy"class="form-text text-muted">パスワードは保存されません</small>
+                <input type="submit" class="btn btn-primary" name="submit" id="submit" value="ログインしてデータを取得"></input>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
