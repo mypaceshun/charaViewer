@@ -35,7 +35,7 @@ except ImportError as error:
 ten_min = 60 * 10
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = ten_min
+SESSION_COOKIE_AGE = ten_min * 3
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
