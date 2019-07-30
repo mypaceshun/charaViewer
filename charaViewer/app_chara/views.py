@@ -7,7 +7,7 @@ from pychara.session import Session
 from charaViewer.aggregater import apply_from_type
 
 
-def top_view(request):
+def login_view(request):
     context = {}
     if request.method == 'GET':
         return render(request, 'top.html', context)
