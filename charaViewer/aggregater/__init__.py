@@ -33,7 +33,8 @@ def apply_from_type(apply_list):
 
 def filter_apply_list(apply_list, filter_dict):
     status_code = filter_dict.get("status_code", None)
-    if status_code is None:
+    if status_code is None \
+       or len(status_code) == 0:
         return apply_list
 
     status_code = [int(s) for s in status_code]
