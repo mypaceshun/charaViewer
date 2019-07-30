@@ -21,11 +21,25 @@ def apply_from_type(apply_list):
     r = {}
 
     for d in apply_list:
-        key = '{}{}'.format(d['id'], d['status_code'])
+        key = '{}{}'.format(str(d['id']), str(d['status_code']))
         if key in r.keys():
             r[key]['num'] = int(r[key]['num']) + int(d['num'])
             r[key]['total_money'] = int(
                 r[key]['one_money']) * int(r[key]['num'])
         else:
             r[key] = d
+    return r
+
+
+def filter_apply_list(apply_list, filter_dict):
+    status_code = filter_dict.get("status_code", None)
+    if status_code is None:
+        return apply_list
+
+    status_code = [int(s) for s in status_code]
+
+    r = []
+    for d in apply_list:
+        if d['status_code'] in status_code:
+            r.append(d)
     return r

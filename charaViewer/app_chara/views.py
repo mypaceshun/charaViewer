@@ -5,7 +5,7 @@ from pychara.exceptions import (PyCharaException,
                                 LoginFailureException)
 from pychara.session import Session
 
-from charaViewer.aggregater import apply_from_type
+from charaViewer.aggregater import apply_from_type, filter_apply_list
 
 
 def require_login(func):
@@ -19,14 +19,24 @@ def require_login(func):
 
 
 @require_login
-@require_http_methods(['GET'])
+@require_http_methods(['GET', 'POST'])
 def top_view(request):
     context = {}
-    apply_list = request.session['apply_list']
-    _apply_list = apply_from_type(apply_list)
-    data = [_apply_list[key] for key in _apply_list]
-    context['data'] = data
-    return render(request, 'top.html', context)
+    if request.method == 'GET':
+        apply_list = request.session['apply_list']
+        _apply_list = apply_from_type(apply_list)
+        data = [_apply_list[key] for key in _apply_list]
+        context['data'] = data
+        return render(request, 'top.html', context)
+    else:  # POST
+        postdata = request.POST
+        filter_dict = get_filter_dict(postdata)
+        apply_list = request.session['apply_list']
+        _apply_list = filter_apply_list(apply_list, filter_dict)
+        __apply_list = apply_from_type(_apply_list)
+        __apply_list = [__apply_list[key] for key in __apply_list]
+        context['data'] = __apply_list
+        return render(request, 'top.html', context)
 
 
 def login_view(request):
@@ -59,15 +69,7 @@ def login_view(request):
         return redirect('top')
 
 
-def result_view(request):
-    context = {}
-    if request.method == 'GET':
-        if 'apply_list' not in request.session.keys():
-            return redirect('top')
-        apply_list = request.session['apply_list']
-        _apply_list = apply_from_type(apply_list)
-        data = [_apply_list[key] for key in _apply_list]
-        context['data'] = data
-        return render(request, 'result.html', context)
-    else:
-        return redirect('top')
+def get_filter_dict(postdata):
+    filter_dict = {}
+    filter_dict['status_code'] = postdata.getlist('status_code')
+    return filter_dict
