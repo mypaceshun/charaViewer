@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fi$^!$w^^$!utt)5zwb$siuf82_37z4-ig+wvqc+*#r*h9l@13'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = []
 
@@ -156,7 +156,7 @@ LOGGING = {
 }
 
 
-if DEBUG is False:
-    DEBUG = True
-    import django_heroku
-    django_heroku.settings(locals())
+#if DEBUG is False:
+#    DEBUG = True
+#    import django_heroku
+#    django_heroku.settings(locals())
