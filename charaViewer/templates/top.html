@@ -20,7 +20,10 @@
                 <label for="password">パスワード</label>
                 <input type="password" class="form-control" name="password" id="password" aria-describedby="policy" placeholder="パスワードを入れてください"></input>
                 <small id="policy"class="form-text text-muted">パスワードは保存されません</small>
-                <input type="submit" class="btn btn-primary" name="submit" id="submit" value="ログインしてデータを取得"></input>
+                <label>集計するページ数</label>
+                <input type="number" class="form-control" name="page" id="page" value="4" min="1" aria-describedby="pageDescribe"></input>
+                <small id="pageDescribe"class="form-text text-muted">多いほど過去の情報も集計できますが、集計にかかる時間も増えます</small>
+                <input type="submit" class="btn btn-primary m-3" name="submit" id="submit" value="ログインしてデータを取得"></input>
             </div>
         </form>
     </div>
