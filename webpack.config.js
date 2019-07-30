@@ -9,8 +9,7 @@ module.exports = {
   entry: {
     "main": [
       "./less/index.less",
-      "./less/import.less",
-      "./js/maintables.js"
+      "./less/import.less"
     ]
   },
   output: {

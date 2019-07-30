@@ -10,13 +10,13 @@
     {{ error }}
 </div>
 {% endif %}
-<div class="row" style="width: 100%">
+<div class="row">
     <div class="col-md-12">
-        <table id="maintable" class="table maintable" style="width:100%">
+        <table id="maintable" class="table maintable">
             <thead>
-                <th>タイトル</th>
-                <th>当落</th>
-                <th>枚数</th>
+                <th class="col-md-8">タイトル</th>
+                <th class="col-md-2">当落</th>
+                <th class="col-md-2">枚数</th>
             </thead>
             <tbody>
                 {% for d in data %}
