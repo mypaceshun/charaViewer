@@ -1,4 +1,3 @@
-import datetime
 from django.shortcuts import render, redirect
 from pychara.exceptions import (PyCharaException,
                                 LoginFailureException)
@@ -7,10 +6,16 @@ from pychara.session import Session
 from charaViewer.aggregater import apply_from_type
 
 
-def login_view(request):
+def top_view(request):
     context = {}
     if request.method == 'GET':
         return render(request, 'top.html', context)
+
+
+def login_view(request):
+    context = {}
+    if request.method == 'GET':
+        return render(request, 'login.html', context)
     else:  # POST
         postdata = request.POST
         username = postdata['username']
@@ -29,10 +34,10 @@ def login_view(request):
             request.session['apply_list'] = apply_list
         except LoginFailureException as err:
             context['error'] = 'ログインに失敗しました...'
-            return render(request, 'top.html', context)
+            return render(request, 'login.html', context)
         except PyCharaException as err:
             context['error'] = '情報の取得に失敗しました...'
-            return render(request, 'top.html', context)
+            return render(request, 'login.html', context)
         return redirect('result')
 
 

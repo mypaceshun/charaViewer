@@ -9,7 +9,8 @@ module.exports = {
   entry: {
     "main": [
       "./less/index.less",
-      "./less/import.less"
+      "./less/import.less",
+      "./js/maintables.js"
     ]
   },
   output: {
@@ -18,6 +19,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: [
+          resolve("node_modules")
+        ],
+        use: [
+          {loader: "babel-loader"}
+        ]
+      },
       {
         test: /\.less$/,
         exclude: [
