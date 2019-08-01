@@ -30,8 +30,11 @@ ${LOCAL_SETTINGS}:
 	echo " STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
 	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
 
+node_modules: package.json
+	${NPM} install
+
 .PHONY: build
-build:
+build: node_modules
 	${NPM} run build
 
 .PHONY: install
