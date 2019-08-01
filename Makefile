@@ -15,8 +15,10 @@ usage:
 	@echo "${MAKE} targets"
 	@echo ""
 	@echo "Target:"
+	@echo "  init             directory init"
 	@echo "  build            less and JavaScript files build"
 	@echo "  install          install static files"
+	@echo "  clean            directory clean"
 
 .PHONY: ${VENV}
 ${VENV}:
@@ -25,10 +27,13 @@ ${VENV}:
 	${ACTIVATE} && ${PIP} install -r requirements.txt
 	touch ${VENV}
 
-${LOCAL_SETTINGS}:
+.PHONY:init
+init: ${LOCAL_SETTINGS};
+${LOCAL_SETTINGS}: ${VENV}
 	echo "DEBUG = False" > ${LOCAL_SETTINGS}
-	echo " STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
+	echo "STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
 	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
+	echo "VENV_SITE_DIR = `pwd`/`ls -d ${VENV}/lib/*/site-packages`" >> ${LOCAL_SETTINGS}
 
 node_modules: package.json
 	${NPM} install
@@ -43,3 +48,9 @@ install: ${VENV} ${LOCAL_SETTINGS}
 	${ACTIVATE} && python manage.py collectstatic
 	mkdir -p `dirname ${DB_PATH}`
 	${ACTIVATE} && python manage.py migrate
+
+.PHONY: clean
+clean:
+	rm -rf node_modules
+	rm -rf ${VENV}
+	rm -rf ${LOCAL_SETTINGS}

@@ -14,10 +14,11 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
-VENV_SITE_DIRECTORY = os.environ.get("VENV_SITE_DIRECTORY", None)
-if VENV_SITE_DIRECTORY is not None:
+try:
+    from local_settings import VENV_SITE_DIRECTORY
     sys.path.append(VENV_SITE_DIRECTORY)
-
+except ImportError:
+    pass
 
 from django.core.wsgi import get_wsgi_application
 
