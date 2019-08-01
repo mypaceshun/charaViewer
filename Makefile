@@ -27,7 +27,7 @@ ${VENV}:
 
 ${LOCAL_SETTINGS}:
 	echo "DEBUG = False" > ${LOCAL_SETTINGS}
-	echo " STATIC_ROOT = ${STATIC_ROOT}" >> ${LCOAL_SETTINGS}
+	echo " STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
 	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
 
 .PHONY: build
