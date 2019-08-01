@@ -1,4 +1,5 @@
 PYTHON3		= python3
+PIP		= python -m pip
 NPM		= npm
 
 VENV		= .venv
@@ -19,8 +20,8 @@ usage:
 .PHONY: ${VENV}
 ${VENV}:
 	${PYTHON3} -m venv ${VENV}
-	${ACTIVATE} && pip install --upgrade pip wheel setuptools
-	${ACTIVATE} && pip install -r requirements.txt
+	${ACTIVATE} && ${PIP} install --upgrade pip wheel setuptools
+	${ACTIVATE} && ${PIP} install -r requirements.txt
 	touch ${VENV}
 
 .PHONY: build
