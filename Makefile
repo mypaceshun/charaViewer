@@ -28,8 +28,11 @@ ${VENV}:
 	touch ${VENV}
 
 .PHONY:init
-init: ${LOCAL_SETTINGS};
-${LOCAL_SETTINGS}: ${VENV}
+init:
+	${MAKE} ${VENV}
+	${MAKE} ${LOCAL_SETTINGS}
+
+${LOCAL_SETTINGS}:
 	echo "DEBUG = False" > ${LOCAL_SETTINGS}
 	echo "STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
 	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
@@ -43,7 +46,8 @@ build: node_modules
 	${NPM} run build
 
 .PHONY: install
-install: ${VENV} ${LOCAL_SETTINGS}
+install:
+	${MAKE} init
 	${MAKE} build
 	${ACTIVATE} && python manage.py collectstatic
 	mkdir -p `dirname ${DB_PATH}`
