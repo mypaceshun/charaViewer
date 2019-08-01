@@ -93,8 +93,10 @@ WSGI_APPLICATION = 'charaViewer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DB_PATH = os.environ.get('CHARAVIEWER_DB_PATH',
-                         os.path.join(BASE_DIR, 'db.sqlite3'))
+try:
+    DB_PATH
+except NameError:
+    DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = {
     'default': {
@@ -143,9 +145,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'charaViewer', 'statics')]
 
-# collectstaticコマンドを利用したときに、
-# staticファイルをデプロイする先
-STATIC_ROOT = os.environ.get('CHARAVIEWER_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
+try:
+    STATIC_ROOT
+except NameError:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 LOGGING = {

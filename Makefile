@@ -5,6 +5,7 @@ NPM		= npm
 VENV		= .venv
 ACTIVATE	= . ${VENV}/bin/activate
 
+LOCAL_SETTINGS  = charaViewer/local_settings.py
 STATIC_ROOT	= static
 DB_PATH		= db/db.sqlite3
 
@@ -24,17 +25,18 @@ ${VENV}:
 	${ACTIVATE} && ${PIP} install -r requirements.txt
 	touch ${VENV}
 
+${LOCAL_SETTINGS}:
+	echo "DEBUG = False" > ${LOCAL_SETTINGS}
+	echo " STATIC_ROOT = ${STATIC_ROOT}" >> ${LCOAL_SETTINGS}
+	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
+
 .PHONY: build
 build:
 	${NPM} run build
 
 .PHONY: install
-install: ${VENV}
+install: ${VENV} ${LOCAL_SETTINGS}
 	${MAKE} build
-	${ACTIVATE} && \
-	CHARAVIEWER_STATIC_ROOT=${STATIC_ROOT} \
-	python manage.py collectstatic
+	${ACTIVATE} && python manage.py collectstatic
 	mkdir -p `dirname ${DB_PATH}`
-	${ACTIVATE} && \
-	CHARAVIEWER_DB_PATH=${DB_PATH} \
-	python manage.py migrate
+	${ACTIVATE} && python manage.py migrate
