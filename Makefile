@@ -6,8 +6,8 @@ VENV		= .venv
 ACTIVATE	= . ${VENV}/bin/activate
 
 LOCAL_SETTINGS  = charaViewer/local_settings.py
-STATIC_ROOT	= `python3 -c "from charaViewer.local_settings import STATIC_ROOT; print(STATIC_ROOT)"`
-DB_PATH		= `python3 -c "from charaViewer.local_settings import DB_PATH; print(DB_PATH)"`
+STATIC_ROOT	= $(shell python3 -c "from charaViewer.local_settings import STATIC_ROOT; print(STATIC_ROOT)")
+DB_PATH		= $(shell python3 -c "from charaViewer.local_settings import DB_PATH; print(DB_PATH)")
 
 
 .PHONY: usage
@@ -49,7 +49,7 @@ install:
 	${MAKE} init
 	${MAKE} build
 	${ACTIVATE} && python manage.py collectstatic
-	mkdir -p `dirname "${DB_PATH}"`
+	mkdir -p `dirname ${DB_PATH}`
 	${ACTIVATE} && python manage.py migrate
 
 .PHONY: clean
