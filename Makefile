@@ -54,9 +54,8 @@ install:
 	${MAKE} build
 	${ACTIVATE} && python manage.py collectstatic
 	mkdir -p `dirname ${DB_PATH}`
-	chgrp ${APACHE_GROUP} `dirname ${DB_PATH}`
-	chmod g+w `dirname ${DB_PATH}`
 	${ACTIVATE} && python manage.py migrate
+	chown ${APACHE_GROUP} `dirname ${DB_PATH}`
 
 .PHONY: clean
 clean:
