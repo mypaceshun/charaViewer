@@ -34,24 +34,25 @@ def top_view(request):
             'titles': titles,
             'word': '',
             }
+
+    apply_list = request.session['apply_list']
+    title_list = get_titles(apply_list)
+    context['titles'] = title_list_convert_titles(title_list)
+
     if request.method == 'GET':
-        apply_list = request.session['apply_list']
-        title_list = get_titles(apply_list)
         data = aggregate_apply_list(apply_list)
         context['data'] = data
-        context['titles'] = title_list_convert_titles(title_list)
+        context['total'] = total_num(data)
         return render(request, 'top.html', context)
     else:  # POST
         postdata = request.POST
-        print(postdata)
         filter_dict = get_filter_dict(postdata)
 
-        apply_list = request.session['apply_list']
-        title_list = get_titles(apply_list)
         _apply_list = filter_apply_list(apply_list, filter_dict)
         data = aggregate_apply_list(_apply_list, filter_dict)
         context['data'] = data
-        context['titles'] = title_list_convert_titles(title_list)
+        context['total'] = total_num(data)
+
         context = filter_dict_convert_context(filter_dict, context)
         return render(request, 'top.html', context)
 
@@ -139,3 +140,12 @@ def title_list_convert_titles(title_list):
             }
         titles.append(d)
     return titles
+
+def total_num(data):
+    '''
+    枚数を集計する
+    '''
+    total = 0
+    for d in data:
+        total += int(d['num'])
+    return total
