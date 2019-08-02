@@ -6,14 +6,22 @@
             <div class="col-md-4">
                 <div class="form-check">
                     {% if d.checked %}
-                        <input class="form-check-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}" checked="checked">
+                        <input class="form-check-input checkbox-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}" checked="checked">
                     {% else %}
-                        <input class="form-check-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}">
+                        <input class="form-check-input checkbox-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}">
                     {% endif %}
-                    <label class="checkbox" for="{{ d.id }}">{{ d.name }}</label>
+                    <label class="checkbox-label" for="{{ d.id }}">{{ d.name }}</label>
                 </div>
             </div>
             {% endfor %}
+        </div>
+        <div class="form-row">
+            <div class="form-check form-check-inline">
+                <label for="reverse">降順に並び替え</label>
+                <input class="form-check-input toggle-input" type="checkbox" id="reverse" value="reverse">
+                <label class="toggle-label" for="reverse"></label>
+                <label for="reverse">昇順に並び替え</label>
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group">

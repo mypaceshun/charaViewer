@@ -1,7 +1,7 @@
-input[type=radio], input[type=checkbox] {
+.checkbox-input {
   display: none;
 }
-.checkbox {
+.checkbox-label {
   box-sizing: border-box;
   transition: background-color 0.2s linear;
   position: relative;
@@ -15,13 +15,13 @@ input[type=radio], input[type=checkbox] {
   cursor: pointer;
 }
 
-.checkbox:hover {
+.checkbox-label:hover {
   background-color: darken(@thema-color, 0.1%);
 }
-.checkbox:hover:after {
+.checkbox-label:hover:after {
   border-color: darken(@thema-color, 10%);
 }
-.checkbox:after {
+.checkbox-label:after {
   transition: border-color 0.2s linear;
   position: absolute;
   top: 50%;
@@ -34,7 +34,7 @@ input[type=radio], input[type=checkbox] {
   border-radius: 6px;
   content: '';
 }
-.checkbox:before {
+.checkbox-label:before {
   transition: opacity 0.2s linear;
   position: absolute;
   top: 50%;
@@ -49,6 +49,6 @@ input[type=radio], input[type=checkbox] {
   opacity: 0;
   transform: rotate(45deg);
 }
-input[type=checkbox]:checked + .checkbox:before {
+.checkbox-input:checked + .checkbox-label:before {
   opacity: 1;
 }
