@@ -9,6 +9,8 @@ LOCAL_SETTINGS  = charaViewer/local_settings.py
 STATIC_ROOT	= $(shell python3 -c "from charaViewer.local_settings import STATIC_ROOT; print(STATIC_ROOT)")
 DB_PATH		= $(shell python3 -c "from charaViewer.local_settings import DB_PATH; print(DB_PATH)")
 
+APACHE_GROUP    = www-data
+
 
 .PHONY: usage
 usage:
@@ -50,6 +52,8 @@ install:
 	${MAKE} build
 	${ACTIVATE} && python manage.py collectstatic
 	mkdir -p `dirname ${DB_PATH}`
+	chgrp ${APACHE_GROUP} `dirname ${DB_PATH}`
+	chmod g+w `dirname ${DB_PATH}`
 	${ACTIVATE} && python manage.py migrate
 
 .PHONY: clean
