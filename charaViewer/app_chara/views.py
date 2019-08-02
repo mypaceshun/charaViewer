@@ -25,8 +25,7 @@ def top_view(request):
     context = {}
     if request.method == 'GET':
         apply_list = request.session['apply_list']
-        _apply_list = aggregate_apply_list(apply_list)
-        data = [_apply_list[key] for key in _apply_list]
+        data = aggregate_apply_list(apply_list)
         context['data'] = data
         return render(request, 'top.html', context)
     else:  # POST
@@ -34,9 +33,8 @@ def top_view(request):
         filter_dict = get_filter_dict(postdata)
         apply_list = request.session['apply_list']
         _apply_list = filter_apply_list(apply_list, filter_dict)
-        __apply_list = aggregate_apply_list(_apply_list)
-        __apply_list = [__apply_list[key] for key in __apply_list]
-        context['data'] = __apply_list
+        data = aggregate_apply_list(_apply_list)
+        context['data'] = data
         return render(request, 'top.html', context)
 
 
