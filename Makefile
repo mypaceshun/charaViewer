@@ -6,8 +6,8 @@ VENV		= .venv
 ACTIVATE	= . ${VENV}/bin/activate
 
 LOCAL_SETTINGS  = charaViewer/local_settings.py
-STATIC_ROOT	= static
-DB_PATH		= db/db.sqlite3
+STATIC_ROOT	= `python3 -c "from charaViewer.local_settings import STATIC_ROOT; print(STATIC_ROOT)"`
+DB_PATH		= `python3 -c "from charaViewer.local_settings import DB_PATH; print(DB_PATH)"`
 
 
 .PHONY: usage
@@ -34,9 +34,9 @@ init:
 
 ${LOCAL_SETTINGS}:
 	echo "DEBUG = False" > ${LOCAL_SETTINGS}
-	echo "STATIC_ROOT = ${STATIC_ROOT}" >> ${LOCAL_SETTINGS}
-	echo "DB_PATH = ${DB_PATH}" >> ${LOCAL_SETTINGS}
-	echo "VENV_SITE_DIR = `pwd`/`ls -d ${VENV}/lib/*/site-packages`" >> ${LOCAL_SETTINGS}
+	echo "STATIC_ROOT = 'static'" >> ${LOCAL_SETTINGS}
+	echo "DB_PATH = 'db.sqlite3'" >> ${LOCAL_SETTINGS}
+	echo "VENV_SITE_DIR = '`pwd`/`ls -d ${VENV}/lib/*/site-packages`'" >> ${LOCAL_SETTINGS}
 
 node_modules: package.json
 	${NPM} install
