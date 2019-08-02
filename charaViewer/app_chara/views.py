@@ -42,8 +42,8 @@ def top_view(request):
         return render(request, 'top.html', context)
     else:  # POST
         postdata = request.POST
+        print(postdata)
         filter_dict = get_filter_dict(postdata)
-        context = filter_dict_convert_context(filter_dict, context)
 
         apply_list = request.session['apply_list']
         title_list = get_titles(apply_list)
@@ -51,6 +51,7 @@ def top_view(request):
         data = aggregate_apply_list(_apply_list, filter_dict)
         context['data'] = data
         context['titles'] = title_list_convert_titles(title_list)
+        context = filter_dict_convert_context(filter_dict, context)
         return render(request, 'top.html', context)
 
 
@@ -86,10 +87,15 @@ def login_view(request):
 
 def get_filter_dict(postdata):
     filter_dict = {}
+
     filter_dict['status_code'] = postdata.getlist('status_code')
+
     filter_dict['reverse'] = False
     if 'reverse' in postdata.keys():
         filter_dict['reverse'] = True
+
+    filter_dict['titles'] = postdata.getlist('titles')
+
     return filter_dict
 
 def filter_dict_convert_context(filter_dict, context):
@@ -101,7 +107,15 @@ def filter_dict_convert_context(filter_dict, context):
         if status_codes[i]['value'] in filter_dict['status_code']:
             status_codes[i]['checked'] = True
     context['status_codes'] = status_codes
+
     context['reverse'] = filter_dict['reverse']
+
+    title_list = filter_dict['titles']
+    titles = context['titles']
+    for i in range(len(titles)):
+        if titles[i]['value'] in title_list:
+            titles[i]['checked'] = True
+    context['titles'] = titles
 
     return context
 
