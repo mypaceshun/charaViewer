@@ -11,6 +11,9 @@
 </div>
 {% endif %}
 {% include "filterform.html" %}
+{% if data|length == 0 %}
+<h3 class="text-center">該当するエントリーはありませんでした。</h3>
+{% else %}
 <div class="row">
     <div class="col-md-12">
         <table id="maintable" class="table maintable">
@@ -31,4 +34,5 @@
         </table>
     </div>
 </div>
+{% endif %}
 {% endblock %}
