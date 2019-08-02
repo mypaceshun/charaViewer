@@ -20,7 +20,6 @@ usage:
 	@echo "  install          install static files"
 	@echo "  clean            directory clean"
 
-.PHONY: ${VENV}
 ${VENV}:
 	${PYTHON3} -m venv ${VENV}
 	${ACTIVATE} && ${PIP} install --upgrade pip wheel setuptools
@@ -50,7 +49,7 @@ install:
 	${MAKE} init
 	${MAKE} build
 	${ACTIVATE} && python manage.py collectstatic
-	mkdir -p `dirname ${DB_PATH}`
+	mkdir -p `dirname "${DB_PATH}"`
 	${ACTIVATE} && python manage.py migrate
 
 .PHONY: clean
