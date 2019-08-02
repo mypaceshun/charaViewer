@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
 try:
-    from .local_settings import VENV_SITE_DIRECTORY
+    from charaViewer.local_settings import VENV_SITE_DIRECTORY
     sys.path.append(VENV_SITE_DIRECTORY)
 except ImportError:
     pass
