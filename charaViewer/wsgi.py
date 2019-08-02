@@ -11,6 +11,12 @@ import os
 
 import sys
 
+new_path = []
+for path in sys.path:
+    if 'venv' not in path:
+        new_path.append(path)
+sys.path = new_path
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
