@@ -104,17 +104,40 @@ def sort_apply_list(apply_list, reverse=False):
 
 
 def filter_apply_list(apply_list, filter_dict):
+    r = []
+    # filter for status_code
     status_code = filter_dict.get("status_code", None)
     if status_code is None \
        or len(status_code) == 0:
-        return apply_list
+        r = apply_list
+    else:
+        status_code = [int(s) for s in status_code]
+        for d in apply_list:
+            if d['status_code'] in status_code:
+                r.append(d)
 
-    status_code = [int(s) for s in status_code]
+    _r = []
+    # filter for title
+    titles = filter_dict.get("titles", None)
+    if titles is None or len(titles) == 0:
+        _r = r
+    else:
+        for d in r:
+            if d['id'][:4] in titles:
+                _r.append(d)
+    r = _r
 
-    r = []
-    for d in apply_list:
-        if d['status_code'] in status_code:
-            r.append(d)
+    _r = []
+    # filter for word
+    word = filter_dict.get("word", "")
+    if len(word) == 0:
+        _r = r
+    else:
+        for d in r:
+            if word in d['name']:
+                _r.append(d)
+    r = _r
+
     return r
 
 
