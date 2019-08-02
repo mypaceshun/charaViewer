@@ -15,6 +15,7 @@ Including another URLconf
 """
 #from django.contrib import admin
 import charaViewer.app_chara.urls
+from django.urls import path, include
 
 urlpatterns = [
     path('', include(charaViewer.app_chara.urls))
