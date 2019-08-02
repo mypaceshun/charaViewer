@@ -30,7 +30,7 @@ def top_view(request):
     context = {'status_codes': status_codes}
     if request.method == 'GET':
         apply_list = request.session['apply_list']
-        data = aggregate_apply_list(apply_list)
+        data = aggregate_apply_list(apply_list, filter_dict)
         context['data'] = data
         return render(request, 'top.html', context)
     else:  # POST
@@ -40,7 +40,7 @@ def top_view(request):
 
         apply_list = request.session['apply_list']
         _apply_list = filter_apply_list(apply_list, filter_dict)
-        data = aggregate_apply_list(_apply_list)
+        data = aggregate_apply_list(_apply_list, filter_dict)
         context['data'] = data
         return render(request, 'top.html', context)
 
@@ -76,8 +76,12 @@ def login_view(request):
 
 
 def get_filter_dict(postdata):
+    print(postdata)
     filter_dict = {}
     filter_dict['status_code'] = postdata.getlist('status_code')
+    filter_dict['reverse'] = False
+    if 'reverse' in postdata.keys():
+        filter_dict['reverse'] = True
     return filter_dict
 
 def filter_dict_convert_context(filter_dict, context):

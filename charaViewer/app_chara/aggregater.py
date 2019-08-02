@@ -4,7 +4,7 @@ import re
 import datetime
 
 
-def aggregate_apply_list(apply_list):
+def aggregate_apply_list(apply_list, filter_dict):
     '''
     apply_list = [{'date': datetime,
                   'id': id,
@@ -32,7 +32,7 @@ def aggregate_apply_list(apply_list):
     r = [r[key] for key in r]
     r = genarate_bu(r)
     r = replace_date(r)
-    r = sort_apply_list(r)
+    r = sort_apply_list(r, filter_dict['reverse'])
     return r
 
 
@@ -86,7 +86,7 @@ def replace_date(apply_list):
     return new_apply_list
 
 
-def sort_apply_list(apply_list):
+def sort_apply_list(apply_list, reverse=False):
     '''
     apply_listをdateとbuをキーにソートする
     '''
@@ -96,7 +96,7 @@ def sort_apply_list(apply_list):
         bu_str = str(d['bu'])
         return '{}{}'.format(date_str, bu_str)
 
-    sorted_list = sorted(apply_list, key=key)
+    sorted_list = sorted(apply_list, key=key, reverse=reverse)
     return sorted_list
 
 
