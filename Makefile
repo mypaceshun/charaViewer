@@ -8,6 +8,7 @@ ACTIVATE	= . ${VENV}/bin/activate
 LOCAL_SETTINGS  = charaViewer/local_settings.py
 STATIC_ROOT	= $(shell python3 -c "from charaViewer.local_settings import STATIC_ROOT; print(STATIC_ROOT)")
 DB_PATH		= $(shell python3 -c "from charaViewer.local_settings import DB_PATH; print(DB_PATH)")
+HOSTNAME	= $(shell hostname -f)
 
 APACHE_GROUP    = www-data
 
@@ -35,6 +36,7 @@ init:
 
 ${LOCAL_SETTINGS}:
 	echo "DEBUG = False" > ${LOCAL_SETTINGS}
+	echo "ALLOWED_HOSTS = ['${HOSTNAME}']" >> ${LOCAL_SETTINGS}
 	echo "STATIC_ROOT = 'static'" >> ${LOCAL_SETTINGS}
 	echo "DB_PATH = 'db.sqlite3'" >> ${LOCAL_SETTINGS}
 	echo "VENV_SITE_DIR = '`pwd`/`ls -d ${VENV}/lib/*/site-packages`'" >> ${LOCAL_SETTINGS}

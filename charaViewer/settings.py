@@ -26,12 +26,15 @@ SECRET_KEY = 'fi$^!$w^^$!utt)5zwb$siuf82_37z4-ig+wvqc+*#r*h9l@13'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = []
-
 try:
     from .local_settings import *
 except ImportError as error:
     pass
+
+try:
+    ALLOWED_HOSTS
+except NameError:
+    ALLOWED_HOSTS = []
 
 ten_min = 60 * 10
 
