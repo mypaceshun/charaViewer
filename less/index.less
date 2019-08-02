@@ -1,4 +1,4 @@
-@font-size-base:  30px;
+@font-size-base:  18px;
 @margin-base: 10px;
 @thema-color: #FFAAAA;
 
@@ -17,6 +17,12 @@
 
 .filter-form {
     &:extend(.login-form);
+}
+
+.form-group-title {
+    font-size: calc(@font-size-base * 1.5);
+    border-bottom: double 6px darken(@thema-color, 10%);
+    vertical-align: middle;
 }
 
 @import "./maintable.less";

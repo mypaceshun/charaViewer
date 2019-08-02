@@ -4,7 +4,7 @@ import re
 import datetime
 
 
-def aggregate_apply_list(apply_list, filter_dict):
+def aggregate_apply_list(apply_list, filter_dict=None):
     '''
     apply_list = [{'date': datetime,
                   'id': id,
@@ -32,7 +32,10 @@ def aggregate_apply_list(apply_list, filter_dict):
     r = [r[key] for key in r]
     r = genarate_bu(r)
     r = replace_date(r)
-    r = sort_apply_list(r, filter_dict['reverse'])
+    reverse = False
+    if filter_dict is not None:
+        reverse = filter_dict['reverse']
+    r = sort_apply_list(r, reverse)
     return r
 
 

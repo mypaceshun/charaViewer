@@ -1,10 +1,20 @@
 <form method="post">
     <div class="filter-form">
         {% csrf_token %}
+        <label class="form-group-title">タイトルの指定</label>
         <div class="form-group row">
+            <div class="col-md-12">
+                <div class="form-check">
+                    <input class="form-check-input checkbox-input" type="checkbox" id="title" name="title" value="title">
+                    <label class="checkbox-label" for="title" style="width:100%">197</label>
+                </div>
+            </div>
+        </div>
+        <label class="form-group-title">当落条件の指定</label>
+        <div class="form-group row justify-content-around">
             {% for d in status_codes %}
             <div class="col-md-4">
-                <div class="form-check">
+                <div class="form-check text-center">
                     {% if d.checked %}
                         <input class="form-check-input checkbox-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}" checked="checked">
                     {% else %}
@@ -15,17 +25,22 @@
             </div>
             {% endfor %}
         </div>
-        <div class="form-row">
-            <div class="form-check form-check-inline">
-                <label for="reverse">降順に並び替え</label>
-                <input class="form-check-input toggle-input" type="checkbox" id="reverse" name="reverse">
-                <label class="toggle-label" for="reverse"></label>
-                <label for="reverse">昇順に並び替え</label>
+        <label class="form-group-title">表示順序</label>
+        <div class="form-group row justify-content-center">
+            <div class="col-md-4 text-center align-middle">
+                <div class="form-check form-check-inline">
+                    <label for="reverse">降順に並び替え</label>
+                    {% if reverse %}
+                        <input class="form-check-input toggle-input" type="checkbox" id="reverse" name="reverse" checked="checked">
+                    {% else %}
+                        <input class="form-check-input toggle-input" type="checkbox" id="reverse" name="reverse">
+                    {% endif %}
+                    <label class="toggle-label" for="reverse"></label>
+                    <label for="reverse">昇順に並び替え</label>
+                </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary m-3" name="submit" id="submit" value="表示を切り替える"></input>
+            <div class="col-md-4 text-center align-middle">
+                <input type="submit" class="btn btn-lg btn-primary m-3" name="submit" id="submit" value="表示を切り替える"></input>
             </div>
         </div>
     </div>
