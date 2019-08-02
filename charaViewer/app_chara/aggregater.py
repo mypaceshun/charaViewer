@@ -116,3 +116,16 @@ def filter_apply_list(apply_list, filter_dict):
         if d['status_code'] in status_code:
             r.append(d)
     return r
+
+
+def get_titles(apply_list):
+    '''
+    apply_listからtitlesを取得する
+    idの上位4桁が同じものは同じタイトルとみなす
+    '''
+    titles = []
+    for d in apply_list:
+        if d['id'][:4] not in titles:
+            titles.append(d['id'][:4])
+    return titles
+

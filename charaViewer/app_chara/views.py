@@ -6,7 +6,8 @@ from pychara.exceptions import (PyCharaException,
 from pychara.session import Session
 
 from charaViewer.app_chara.aggregater import (aggregate_apply_list,
-                                              filter_apply_list)
+                                              filter_apply_list,
+                                              get_titles)
 
 
 def require_login(func):
@@ -27,11 +28,17 @@ def top_view(request):
             {'id': 'status_code1','value': '1', 'name': '落選', 'checked': False},
             {'id': 'status_code2','value': '-1', 'name': '抽選待ち', 'checked': False},
             ]
-    context = {'status_codes': status_codes}
+    titles = [ ]
+    context = {
+            'status_codes': status_codes,
+            'titles': titles,
+            }
     if request.method == 'GET':
         apply_list = request.session['apply_list']
+        title_list = get_titles(apply_list)
         data = aggregate_apply_list(apply_list)
         context['data'] = data
+        context['titles'] = title_list_convert_titles(title_list)
         return render(request, 'top.html', context)
     else:  # POST
         postdata = request.POST
@@ -39,9 +46,11 @@ def top_view(request):
         context = filter_dict_convert_context(filter_dict, context)
 
         apply_list = request.session['apply_list']
+        title_list = get_titles(apply_list)
         _apply_list = filter_apply_list(apply_list, filter_dict)
         data = aggregate_apply_list(_apply_list, filter_dict)
         context['data'] = data
+        context['titles'] = title_list_convert_titles(title_list)
         return render(request, 'top.html', context)
 
 
@@ -95,3 +104,20 @@ def filter_dict_convert_context(filter_dict, context):
     context['reverse'] = filter_dict['reverse']
 
     return context
+
+
+def title_list_convert_titles(title_list):
+    '''
+    title(idの上位4桁)が列挙されただけのリストを、
+    contextに利用出来る形に整形する
+    '''
+    titles = []
+    for i in range(len(title_list)):
+        d = {
+                'id': 'title{}'.format(i),
+                'value': title_list[i],
+                'display': title_list[i],
+                'checked': False,
+            }
+        titles.append(d)
+    return titles

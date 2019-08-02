@@ -3,12 +3,18 @@
         {% csrf_token %}
         <label class="form-group-title">タイトルの指定</label>
         <div class="form-group row">
+            {% for d in titles %}
             <div class="col-md-12">
                 <div class="form-check">
-                    <input class="form-check-input checkbox-input" type="checkbox" id="title" name="title" value="title">
-                    <label class="checkbox-label" for="title" style="width:100%">197</label>
+                    {% if d.checked %}
+                        <input class="form-check-input checkbox-input" type="checkbox" id="{{ d.id }}" name="titles" value="{{ d.value }}" checked="checked">
+                    {% else %}
+                        <input class="form-check-input checkbox-input" type="checkbox" id="{{ d.id }}" name="titles" value="{{ d.value }}">
+                    {% endif %}
+                    <label class="checkbox-label" for="{{ d.id }}" style="width:100%">{{ d.display }}</label>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <label class="form-group-title">当落条件の指定</label>
         <div class="form-group row justify-content-around">
