@@ -4,7 +4,7 @@ pycharaのfetch_apply_list()やfetch_purchase_list()で取得してきたリス�
 '''
 
 
-def apply_from_type(apply_list):
+def aggregate_apply_list(apply_list):
     '''
     apply_list = [{'date': datetime,
                   'id': id,
@@ -15,7 +15,7 @@ def apply_from_type(apply_list):
                   'status': 当選
                   'status_code': 0,
                   }, ...]
-    apply_list をstatus_codeごとに分類
+    apply_list をstatus_codeごとに集計
     '''
 
     r = {}
