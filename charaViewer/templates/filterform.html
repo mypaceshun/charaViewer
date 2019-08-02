@@ -1,6 +1,13 @@
 <form method="post">
     <div class="filter-form">
         {% csrf_token %}
+        <label class="form-group-title">単語検索</label>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <input class="form-control" type="text" id="word" name="word" value="{{ word }}" aria-describedby="wordHelp" placeholder="検索する単語を入力してください"></input>
+                <small id="wordHelp" class="form-text text-muted">タイトルの中に指定した単語が含まれる物を抽出します。メンバー名や会場名をいれてみてください。</small>
+            </div>
+        </div>
         <label class="form-group-title">タイトルの指定</label>
         <div class="form-group row">
             {% for d in titles %}

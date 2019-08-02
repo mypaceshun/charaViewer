@@ -32,6 +32,7 @@ def top_view(request):
     context = {
             'status_codes': status_codes,
             'titles': titles,
+            'word': '',
             }
     if request.method == 'GET':
         apply_list = request.session['apply_list']
@@ -96,6 +97,8 @@ def get_filter_dict(postdata):
 
     filter_dict['titles'] = postdata.getlist('titles')
 
+    filter_dict['word'] = postdata.get('word')
+
     return filter_dict
 
 def filter_dict_convert_context(filter_dict, context):
@@ -116,6 +119,7 @@ def filter_dict_convert_context(filter_dict, context):
         if titles[i]['value'] in title_list:
             titles[i]['checked'] = True
     context['titles'] = titles
+    context['word'] = filter_dict['word']
 
     return context
 
