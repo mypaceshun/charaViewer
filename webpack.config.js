@@ -8,6 +8,7 @@ module.exports = {
   mode: "production",
   entry: {
     "main": [
+      "bootstrap-switch-button",
       "./less/index.less",
       "./less/import.less"
     ]
