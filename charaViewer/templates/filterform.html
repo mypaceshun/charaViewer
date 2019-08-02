@@ -2,24 +2,18 @@
     <div class="filter-form">
         {% csrf_token %}
         <div class="form-group row">
+            {% for d in status_codes %}
             <div class="col-md-4">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="status_code0" name="status_code" value="0">
-                    <label class="form-check-label" for="status_code0">当選</label>
+                    {% if d.checked %}
+                        <input class="form-check-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}" checked="checked">
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" id="{{ d.id }}" name="status_code" value="{{ d.value }}">
+                    {% endif %}
+                    <label class="form-check-label" for="{{ d.id }}">{{ d.name }}</label>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="status_code1" name="status_code" value="1">
-                    <label class="form-check-label" for="status_code1">落選</label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="status_code2" name="status_code" value="-1">
-                    <label class="form-check-label" for="status_code2">抽選待ち</label>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="form-row">
             <div class="form-group">

@@ -22,7 +22,12 @@ def require_login(func):
 @require_login
 @require_http_methods(['GET', 'POST'])
 def top_view(request):
-    context = {}
+    status_codes = [
+            {'id': 'status_code0','value': '0', 'name': '当選', 'checked': False},
+            {'id': 'status_code1','value': '1', 'name': '落選', 'checked': False},
+            {'id': 'status_code2','value': '-1', 'name': '抽選待ち', 'checked': False},
+            ]
+    context = {'status_codes': status_codes}
     if request.method == 'GET':
         apply_list = request.session['apply_list']
         data = aggregate_apply_list(apply_list)
@@ -31,6 +36,8 @@ def top_view(request):
     else:  # POST
         postdata = request.POST
         filter_dict = get_filter_dict(postdata)
+        context = filter_dict_convert_context(filter_dict, context)
+
         apply_list = request.session['apply_list']
         _apply_list = filter_apply_list(apply_list, filter_dict)
         data = aggregate_apply_list(_apply_list)
@@ -72,3 +79,15 @@ def get_filter_dict(postdata):
     filter_dict = {}
     filter_dict['status_code'] = postdata.getlist('status_code')
     return filter_dict
+
+def filter_dict_convert_context(filter_dict, context):
+    '''
+    前回の検索条件をcontextに保存する
+    '''
+    status_codes = context['status_codes']
+    for i in range(len(status_codes)):
+        if status_codes[i]['value'] in filter_dict['status_code']:
+            status_codes[i]['checked'] = True
+    context['status_codes'] = status_codes
+
+    return context
