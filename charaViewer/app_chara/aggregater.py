@@ -1,8 +1,4 @@
-'''
-pycharaのfetch_apply_list()やfetch_purchase_list()で取得してきたリストを
-それぞれ任意のルールで集計する
-'''
-
+# apply_listをこねくり回す関数たち
 
 def aggregate_apply_list(apply_list):
     '''
@@ -28,7 +24,15 @@ def aggregate_apply_list(apply_list):
                 r[key]['one_money']) * int(r[key]['num'])
         else:
             r[key] = d
+    sort_apply_list(apply_list)
     return r
+
+
+def sort_apply_list(apply_list):
+    '''
+    apply_listをdateとbuをキーにソートする
+    '''
+    print(apply_list)
 
 
 def filter_apply_list(apply_list, filter_dict):

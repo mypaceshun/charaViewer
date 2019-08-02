@@ -5,8 +5,8 @@ from pychara.exceptions import (PyCharaException,
                                 LoginFailureException)
 from pychara.session import Session
 
-from charaViewer.aggregater import (aggregate_apply_list,
-                                    filter_apply_list)
+from charaViewer.app_chara.aggregater import (aggregate_apply_list,
+                                              filter_apply_list)
 
 
 def require_login(func):
@@ -34,7 +34,7 @@ def top_view(request):
         filter_dict = get_filter_dict(postdata)
         apply_list = request.session['apply_list']
         _apply_list = filter_apply_list(apply_list, filter_dict)
-        __apply_list = apply_from_type(_apply_list)
+        __apply_list = aggregate_apply_list(_apply_list)
         __apply_list = [__apply_list[key] for key in __apply_list]
         context['data'] = __apply_list
         return render(request, 'top.html', context)
