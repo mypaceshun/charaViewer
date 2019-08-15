@@ -17,10 +17,12 @@ Including another URLconf
 from django.urls import path, include
 import charaViewer.viewer.urls
 import charaViewer.poster.urls
+import charaViewer.api.urls
 from charaViewer.views import top_view
 
 urlpatterns = [
     path('', top_view, name="top"),
     path('viewer/', include(charaViewer.viewer.urls)),
-    path('poster/', include(charaViewer.poster.urls))
+    path('poster/', include(charaViewer.poster.urls)),
+    path('api/', include(charaViewer.api.urls)),
 ]
