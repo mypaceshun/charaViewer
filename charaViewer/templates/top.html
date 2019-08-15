@@ -1,43 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <h1>某兄さんをいい感じに集計していい感じに出力します。</h1>
+<div class="card border-primary mb-3">
+    <h3 class="card-header">charaViewer</h3>
+    <div class="card-body">
+        <p class="card-text">某兄さんをいい感じに表示するWebアプリです。</p>
+        <a href="{% url 'viewer_top' %}" class="btn btn-primary">charaViewer</a>
     </div>
 </div>
-{% if error %}
-<div class="row">
-    {{ error }}
-</div>
-{% endif %}
-{% include "filterform.html" %}
-{% if data|length == 0 %}
-<h3 class="text-center">該当するエントリーはありませんでした。</h3>
-{% else %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="total">ヒットした枚数の合計： <span class="total-num">{{ total }}枚</span></div>
+<div class="card border-primary mb-3">
+    <h3 class="card-header">charaPoster</h3>
+    <div class="card-body">
+        <p class="card-text">某兄さんの注文を代行するWebアプリです。</p>
+        <a href="{% url 'poster_top' %}" class="btn btn-primary">charaPoster</a>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <table id="maintable" class="table maintable">
-            <thead>
-                <th class="col-md-8">タイトル</th>
-                <th class="col-md-2">当落</th>
-                <th class="col-md-2">枚数</th>
-            </thead>
-            <tbody>
-                {% for d in data %}
-                <tr>
-                    <td>{{ d.name }}</td>
-                    <td>{{ d.status }}</td>
-                    <td>{{ d.num }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-{% endif %}
 {% endblock %}

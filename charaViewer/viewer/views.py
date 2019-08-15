@@ -5,9 +5,10 @@ from pychara.exceptions import (PyCharaException,
                                 LoginFailureException)
 from pychara.session import Session
 
-from charaViewer.app_chara.aggregater import (aggregate_apply_list,
-                                              filter_apply_list,
-                                              get_titles)
+from charaViewer.viewer import APPTITLE
+from charaViewer.viewer.aggregater import (aggregate_apply_list,
+                                           filter_apply_list,
+                                           get_titles)
 
 
 def require_login(func):
@@ -15,7 +16,7 @@ def require_login(func):
     def _require_login(request, *args, **kwargs):
         username = request.session.get("username", None)
         if username is None:
-            return redirect('login')
+            return redirect('viewer_login')
         return func(request, *args, **kwargs)
     return _require_login
 
@@ -30,6 +31,7 @@ def top_view(request):
             ]
     titles = [ ]
     context = {
+            'title': APPTITLE,
             'status_codes': status_codes,
             'titles': titles,
             'word': '',
@@ -43,7 +45,7 @@ def top_view(request):
         data = aggregate_apply_list(apply_list)
         context['data'] = data
         context['total'] = total_num(data)
-        return render(request, 'top.html', context)
+        return render(request, 'viewer/top.html', context)
     else:  # POST
         postdata = request.POST
         filter_dict = get_filter_dict(postdata)
@@ -54,13 +56,13 @@ def top_view(request):
         context['total'] = total_num(data)
 
         context = filter_dict_convert_context(filter_dict, context)
-        return render(request, 'top.html', context)
+        return render(request, 'viewer/top.html', context)
 
 
 def login_view(request):
-    context = {}
+    context = {'title': APPTITLE}
     if request.method == 'GET':
-        return render(request, 'login.html', context)
+        return render(request, 'viewer/login.html', context)
     else:  # POST
         postdata = request.POST
         username = postdata['username']
@@ -79,12 +81,12 @@ def login_view(request):
             request.session['apply_list'] = apply_list
         except LoginFailureException as err:
             context['error'] = 'ログインに失敗しました...'
-            return render(request, 'login.html', context)
+            return render(request, 'viewer/login.html', context)
         except PyCharaException as err:
             context['error'] = '情報の取得に失敗しました...'
-            return render(request, 'login.html', context)
+            return render(request, 'viewer/login.html', context)
         request.session['username'] = username
-        return redirect('top')
+        return redirect('viewer_top')
 
 
 def get_filter_dict(postdata):

@@ -14,9 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 #from django.contrib import admin
-import charaViewer.app_chara.urls
 from django.urls import path, include
+import charaViewer.viewer.urls
+import charaViewer.poster.urls
+from charaViewer.views import top_view
 
 urlpatterns = [
-    path('', include(charaViewer.app_chara.urls))
+    path('', top_view, name="top"),
+    path('viewer/', include(charaViewer.viewer.urls)),
+    path('poster/', include(charaViewer.poster.urls))
 ]
