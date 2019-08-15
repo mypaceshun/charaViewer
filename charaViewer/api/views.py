@@ -56,12 +56,16 @@ def date_items_view(request, value):
     data = []
     for even in even_els:
         text = even.findAll('span')[0].text
+        options = [i.text for i in even.findAll('option')]
+        num = 0
+        if len(options) != 0:
+            num = max(options)
         select_el = even.find('select')
         if select_el is None:
-            data.append({'text': text, 'name': None, 'soldout': True})
+            data.append({'text': text, 'name': None, 'num': num, 'soldout': True})
         else:
             name = select_el.get('name')
-            data.append({'text': text, 'name': name, 'soldout': False})
+            data.append({'text': text, 'name': name, 'num': num, 'soldout': False})
 
     return JsonResponse({'data': data})
 
