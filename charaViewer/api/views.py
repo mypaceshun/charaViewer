@@ -44,6 +44,8 @@ def date_items_view(request, value):
     cookies = res.cookies
     postdata = find_hidden(res.text)
     postdata['ddlEvents'] = str(value)
+    postdata['btnDisp.x'] = str(114)
+    postdata['btnDisp.y'] = str(18)
     res = requests.post(RESERVE_URL, cookies=cookies, data=postdata)
     
     if res.status_code != 200:

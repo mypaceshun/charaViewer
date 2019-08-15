@@ -11,6 +11,9 @@ module.exports = {
       "bootstrap-switch-button",
       "./less/index.less",
       "./less/import.less"
+    ],
+    "fetch_items": [
+      "./js/fetch_items.js"
     ]
   },
   output: {

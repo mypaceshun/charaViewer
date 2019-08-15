@@ -4,6 +4,14 @@
 <form method="POST">
     {% csrf_token %}
     <div class="form-row">
+        <label for="username">ユーザー名</label>
+        <input id="username" name="username" type="text" class="form-control m-3" required></input>
+    </div>
+    <div class="form-row">
+        <label for="password">パスワード</label>
+        <input id="password" name="password" type="password" class="form-control m-3" required></input>
+    </div>
+    <div class="form-row">
         <div class="col-auto">
             <input id="num" type="number" class="form-control m-3" min="0" name="num" value="1" required></input>
         </div>
@@ -37,8 +45,6 @@
                     <div id="name">
                         <select class="form-control" name="name-{{n}}" id="name-{{n}}">
                             <option selected></option>
-                            <option>中村</option>
-                            <option>中井</option>
                         </select>
                     </div>
                 </td>
