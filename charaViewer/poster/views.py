@@ -8,7 +8,8 @@ from charaViewer.poster import APPTITLE
 
 @require_http_methods(['GET', 'POST'])
 def top_view(request):
-    context = {'title': APPTITLE}
+    context = {'title': APPTITLE,
+                'maxItems': range(10)}
     if request.method == 'GET':
         return render(request, 'poster/top.html', context)
     else:  # POST

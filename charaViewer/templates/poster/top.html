@@ -1,4 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>工事中</h1>
+<form method="POST">
+    {% csrf_token %}
+    {% for n in maxItems %}
+    <div class="form-row">
+        <div class="col-auto">
+            <label for="date-{{n}}">日付</label>
+            <select id="date-{{n}}" class="form-control" name="date-{{n}}">
+                <option>幕張</option>
+                <option>横浜</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="name-{{n}}">メンバー</label>
+            <select id="name-{{n}}" class="form-control" name="name-{{n}}">
+                <option>中村</option>
+                <option>中井</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="num-{{n}}">枚数</label>
+            <input id="num-{{n}}" type="number" class="form-control" max="10" min="0" name="num-{{n}}"></input>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="form-row">
+        <div class="col-auto">
+            <input id="num" type="number" class="form-control m-3" min="0" name="num" value="1" required></input>
+        </div>
+        <div class="col-auto">
+            <h3 class="m-3">回</h3>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary m-3">申し込み実行</button>
+        </div>
+    </div>
+</form>
 {% endblock %}
