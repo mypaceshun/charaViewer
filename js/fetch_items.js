@@ -7,6 +7,8 @@ window.addEventListener("DOMContentLoaded", function() {
 
     date_el.addEventListener("change", function(){ fetch_items(i) });
     name_el.addEventListener("change", function(){ fetch_nums(i) });
+    fetch_items(i);
+    fetch_nums(i);
   }
 });
 
