@@ -9,7 +9,7 @@ autopep8 = "*"
 pytest = "*"
 
 [packages]
-django = "*"
+django = ">=2.2.4"
 pychara = "*"
 django-heroku = "*"
 gunicorn = "*"
