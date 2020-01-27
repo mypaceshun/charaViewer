@@ -9,13 +9,25 @@ autopep8 = "*"
 pytest = "*"
 
 [packages]
-django = ">=2.2.4"
-pychara = "*"
-django-heroku = "*"
-gunicorn = "*"
+pychara = "==0.9.3"
+django-heroku = "==0.3.1"
+gunicorn = "==19.9.0"
+beautifulsoup4 = "==4.7.1"
+certifi = "==2019.6.16"
+chardet = "==3.0.4"
+dj-database-url = "==0.5.0"
+idna = "==2.8"
+psycopg2 = "==2.8.3"
+pytz = "==2019.2"
+requests = "==2.21.0"
+soupsieve = "==1.9.3"
+sqlparse = "==0.3.0"
+urllib3 = "==1.24.3"
+whitenoise = "==4.1.3"
+Django = "==2.2.9"
 
 [requires]
-python_version = "3.6"
+python_version = "3"
 
 [scripts]
 build-env = "pipenv sync"
